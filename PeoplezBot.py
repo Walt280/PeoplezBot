@@ -133,6 +133,12 @@ async def revalternate(*, args):
     print(join)
     await bot.say(join) 
 
+    #Change Game
+@bot.command()
+async def changeGame(*, args):
+    """Changes the game being played by the bot"""
+    await bot.change_presence(game=discord.Game(name = args))
+
 #owo
 @bot.command()
 async def owo(*, args):
