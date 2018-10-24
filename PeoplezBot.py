@@ -176,4 +176,4 @@ async def owo(*, args):
     hold = join
     await bot.say(join)
 
-bot.run('MzIyNTUwNjAyMTcxMTU0NDMz.DSidFg.ifKsPdbn-PoZAcuDkiDxvDkpTvE')
+bot.run()
