@@ -1,13 +1,12 @@
-#RevaliBot ver 1.1
+#RevaliBot ver 1.2
 #Created by Peoplez101 (Ryan E.)
-#Last Update 30/03/18 (DD/MM/YY)
+#Last Update 25/10/18 (DD/MM/YY)
 
 import discord
+import datetime
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='$', description="Peoplez101's Discord Chat Bot")
-
-hold = 'null'
 
 def to_upper(arguement):
     return arguement.upper()
@@ -21,7 +20,7 @@ async def on_ready():
     print(bot.user.name)
 
     #Changes the game title associated with the bot
-    await bot.change_presence(game=discord.Game(name='type $helpMe for help!'))
+    await bot.change_presence(game=discord.Game(name='type $help for help!'))
 
 #Hello
 @bot.command()
@@ -175,5 +174,17 @@ async def owo(*, args):
     join = ''.join(letters)
     hold = join
     await bot.say(join)
+
+
+@bot.command()
+async def today():
+    """Returns today's date"""
+    today = datetime.datetime.now()
+    day = str(today.day)
+    month = str(today.month)
+    year = str(today.year)
+    date = year + "-" + month + "-" + day
+    await bot.say("Today Is: " + date)
+
 
 bot.run()
