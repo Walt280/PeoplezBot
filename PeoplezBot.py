@@ -4,6 +4,7 @@
 
 import discord
 import datetime
+import random
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='$', description="Peoplez101's Discord Chat Bot")
@@ -198,6 +199,14 @@ async def calculator(*, args):
             answer = int(num1) / int(num2)
 
         await bot.say(str(answer))
+
+@bot.command()
+async def arcana():
+    """Random Arcana Given"""
+    Arcana = ["Fool", "Jester", "Magician", "Priestess", "Empress", "Emperor", "Hierophant", "Lovers", "Chariot", "Justice", "Hermit", "Fortune", "Strength", "Hanged", "Death", "Temperance", "Devil" "Tower", "Star", "Moon", "Sun", "Judgement", "World"]
+    integerRand = random.randint(1, 20)
+    arcanaNum = integerRand - 1
+    await bot.say(Arcana[arcanaNum])
 
 
 @bot.command()
