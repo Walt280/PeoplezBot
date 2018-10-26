@@ -7,6 +7,8 @@ import datetime
 import random
 from discord.ext import commands
 
+import calculator_core as cc
+
 bot = commands.Bot(command_prefix='$', description="Peoplez101's Discord Chat Bot")
 
 def to_upper(arguement):
@@ -177,28 +179,48 @@ async def owo(*, args):
     await bot.say(join)
 
 @bot.command()
-async def calculator(*, args):
-        """Simple Calculator"""
+async def calc(*, args):
+        """Simple Calculator. 
+        Supported operations:
+        Addition (+)
+        Subtraction (-)
+        Multiplication (* ×)
+        Division (/ ÷)
+        Exponentiation (^)
+        Square Root (sqrt √)
+        
+        Parenthesis (), as well as BEDMAS is supported. 
+        Use "digits=<n>" to round the answer to n number of digits.
+        """
         terms = args.split()
-        answer = 0
-        operation = ""
-        num1 = 1
-        num2 = 1
-
-        operation = str(args[1])
-        num1 = args[0] 
-        num2 = args[2]
-
-        if operation == "+":
-            answer = int(num1) + int(num2)
-        elif operation == "-":
-            answer = int(num1) - int(num2)
-        elif operation == "*":
-            answer = int(num1) * int(num2)
-        elif operation == "/":
-            answer = int(num1) / int(num2)
-
-        await bot.say(str(answer))
+        
+        digits = -1
+        parsed_digits = True
+        for i in terms:
+            if "digits=" in i:
+                try:
+                    digits = int(i.replace("digits=",""))
+                    args = args.replace(i,"")
+                except ValueError:
+                    await bot.say("Invalid number of rounding digits.")
+                    parsed_digits = False
+        
+        if(parsed_digits):
+            try:
+                eq = cc.parse_equation(args)
+                res = cc.eval_equation(eq, digits)
+                await bot.say(str(res))
+            except ValueError as v:
+                msg = str(v)
+                
+                if(msg == cc.invalid_token()):
+                    await bot.say("Invalid token in expression. Maybe double check your equation?")
+                elif(msg == cc.unbalanced_parenthesis()):
+                    await bot.say("Unbalenced parenthesis found. Maybe double check your equation?")
+                else:
+                    await bot.say("Square root of a negative number found. That's not possible.")
+            except ZeroDivisionError:
+                await bot.say("You can't divide by zero!")
 
 @bot.command()
 async def arcana():
