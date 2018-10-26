@@ -175,6 +175,30 @@ async def owo(*, args):
     hold = join
     await bot.say(join)
 
+@bot.command()
+async def calculator(*, args):
+        """Simple Calculator"""
+        terms = args.split()
+        answer = 0
+        operation = ""
+        num1 = 1
+        num2 = 1
+
+        operation = str(args[1])
+        num1 = args[0] 
+        num2 = args[2]
+
+        if operation == "+":
+            answer = int(num1) + int(num2)
+        elif operation == "-":
+            answer = int(num1) - int(num2)
+        elif operation == "*":
+            answer = int(num1) * int(num2)
+        elif operation == "/":
+            answer = int(num1) / int(num2)
+
+        await bot.say(str(answer))
+
 
 @bot.command()
 async def today():
@@ -186,5 +210,11 @@ async def today():
     date = year + "-" + month + "-" + day
     await bot.say("Today Is: " + date)
 
+@bot.command()
+async def close():
+    print ('logging out')
+    await bot.close()
 
-bot.run()
+
+bot.run('MzIyNTUwNjAyMTcxMTU0NDMz.DSidFg.ifKsPdbn-PoZAcuDkiDxvDkpTvE')
+
